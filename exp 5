@@ -1,0 +1,205 @@
+Implementing Stack using arrays.
+
+Program : 
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#define SIZE 5  
+
+struct stack {
+    int s[SIZE];
+    int top;
+} st;
+
+int stfull() {
+    if (st.top >= SIZE - 1)
+        return 1;
+    else
+        return 0;
+}
+
+int stempty() {
+    if (st.top == -1)
+        return 1;
+    else
+        return 0;
+}
+
+void push(int item) {
+    st.top++;
+    st.s[st.top] = item;
+}
+
+int pop() {
+    int item;
+    item = st.s[st.top];
+    st.top--;
+    return item;
+}
+
+void display() {
+    int i;
+    if (stempty()) {
+        printf("\nStack is empty!!");
+    } else {
+        printf("\nStack elements (Top to Bottom):");
+        for (i = st.top; i >= 0; i--) {
+            printf("\n%d", st.s[i]);
+        }
+    }
+}
+
+int main(void) {
+    int item, choice;
+    char ans;
+    st.top = -1;
+    
+    printf("\n\t\t Implementation of stack");
+
+    do {
+        printf("\n\n--- Main Menu ---");
+        printf("\n1. Push\n2. Pop\n3. Display\n4. Exit");
+        printf("\nEnter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1: 
+                if (stfull()) {
+                    printf("\nStack Overflow! Cannot push element.");
+                } else {
+                    printf("\nEnter the item to be pushed: ");
+                    scanf("%d", &item);
+                    push(item);
+                    printf("\nthe item is pushed successfully! ");
+                    
+                }
+                break;
+                
+            case 2: 
+                if (stempty()) {
+                    printf("\nStack Underflow! Empty Stack.");
+                } else {
+                    item = pop();
+                    printf("\nPopped element is: %d", item);
+                }
+                break;
+                
+            case 3: 
+                display();
+                break;
+                
+            case 4: 
+                printf("\nExiting program...\n");
+                exit(0);
+                
+            default:
+                printf("\nInvalid Choice! Please select 1-4.");
+        }
+        
+        // printf("\n\nDo you want to continue? (Y/N): ");
+        // scanf(" %c", &ans); 
+        
+    } while (choice != 4);
+    // } while (ans == 'Y' || ans == 'y');
+
+    return 0;
+}
+
+
+Implementing Queue using arrays.
+
+Program :
+
+#include<stdio.h>
+#include<stdlib.h>
+#define size 5
+
+struct Queue
+{
+    int que[size];
+    int front,rear;
+}Q;
+
+int Qfull() { 
+    if(Q.rear>=size-1)
+        return 1;
+    else
+        return 0;
+}
+
+int Qempty() { 
+    if((Q.front==-1)||(Q.front>Q.rear))
+        return 1;
+    else
+        return 0;
+}
+
+int insert(int item) {
+    if(Q.front==-1)
+        Q.front=0; 
+    Q.que[++Q.rear]=item;
+    return Q.rear;
+}
+
+int delete_item() {
+    int item;
+    item=Q.que[Q.front];
+    Q.front++;
+    printf("\nDeleted item is %d ",item);
+    
+    if(Q.front > Q.rear) {
+        Q.front = -1;
+        Q.rear = -1;
+    }
+    return Q.front;
+}
+
+void display() {
+    int i;
+    printf("\nThe elements are:- \n");
+    for(i=Q.front;i<=Q.rear;i++)
+        printf("%d   ",Q.que[i]);
+}
+
+int main()
+{
+    int choice,item;
+    Q.front=-1;
+    Q.rear=-1;
+    do
+    {
+        printf("\n\nMain Menu");
+        printf("\n1.Insert\n2.Delete\n3.Display\n4.Exit"); 
+        printf("\nEnter your choice:- ");
+        scanf("%d",&choice);
+        switch(choice){
+            case 1:if(Qfull())
+                printf("\nQUEUE is FULL");
+    	   else
+    	   {
+    		  printf("\nEnter the element to be inserted:- ");
+    		  scanf("%d",&item);
+    		  insert(item);
+		   }
+		   break;
+            case 2:if(Qempty())
+        	   printf("\nQUEUE is EMPTY");
+    		else
+        		 delete_item(); 
+        	break;
+            case 3:if(Qempty())
+        		 printf("\nQUEUE  is EMPTY");
+        	else
+    		 display();
+		  break;
+            case 4: 
+                printf("\nExiting program...");
+                break;
+            default:printf("\nWRONG CHOICE");
+		break;
+        }
+    } while(choice != 4); 
+
+    return 0;
+}
